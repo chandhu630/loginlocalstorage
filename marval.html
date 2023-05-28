@@ -1,0 +1,60 @@
+<html>
+
+<head>
+    <title> Marval Characters</title>
+    <style>
+        body{
+            background-color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" class="search" placeholder="Search marval Characters" />
+    <button class="done" onclick="searchbutton()">DONE</button>
+    <div class="display">
+
+    </div>
+</body>
+<script type="text/javascript">
+    async function fetchData(url) {
+        response = await fetch(url);
+        jsondata = await response.json();
+        return jsondata;
+    }
+    async function searchbutton() {
+        let displayTag = document.querySelector(".display");
+        let done = document.querySelector(".done");
+        let searchTag = document.querySelector(".search");
+        const dataUrl = await fetchData(`https://gateway.marvel.com:443/v1/public/characters?nameStartsWith=${searchTag.value}&apikey=3ad548118680d3dad3f194ff9e289c93&hash=2bf68c80955bd4f084b8fe653c6683a0&ts=1685222640625`);
+        const output = dataUrl["results"];
+        //console.log(output);
+        //console.log(dataUrl);
+            if(output !== 0)
+            {
+                for(let i=0;i<output.length;i++)
+                {
+                    let div = document.createElement("div");
+                    let name= document.createElement("div");
+                    total.innerHTML = output[i].name;
+                    let id= document.createElement("div");
+                    id.innerHTML = output[i].id;
+                    let modified= document.createElement("div");
+                    modified.innerHTML = output[i].modified;
+                    let displayTag = document.querySelector(".display");
+                    // let limit = document.createElement("div");
+                    // limit.innerHTML = output[i].limit;
+                    div.append(name,id,modified);
+                    console.log(div);
+                    displayTag.append(div);
+                    console.log(displayTag);
+                }
+
+            }
+
+    }
+
+
+</script>
+
+</html>
